@@ -6,7 +6,7 @@ theme:
     intro_slide:
       title:
         style: template
-        font_size: 20
+        font_size: 5
         height: 20
         
         
@@ -44,7 +44,7 @@ when it is not.
 
 <!-- column_layout: [2,1] -->
 <!-- column: 0 -->
-```file +line_numbers +exec  {1|2|4-6|8-12|14-16|17|all} +id:bad_code 
+```file +line_numbers +exec  {1|2,20|3|5-7|9-13|15-17|18|19|all} +id:bad_code 
 path: bad_code.cpp
 language: cpp
 ```
@@ -72,29 +72,44 @@ We get
 
 > It can get stuck in an infinite loop.
 
-
-
-
 <!-- end_slide -->
 
 New Alogrithim
-
 ===
+
 We keep track of previous numbers!
 
 ---
 Just checking if n is repeating we can prevent infinite loops.
-```html +line_numbers {2|3|4|5|6|7|8|9|10|11}
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│    n    │      digits     │    new N    │     prev Numbers     │ Did Appear before │
-│─────────│─────────────────│─────────────│──────────────────────│───────────────────│
-│    4    │       4^2       │      16     │           4          │         No        │
-│    16   │    1^2 + 6^2    │      37     │         4 16         │         No        │
-│    37   │    3^2 + 7^2    │      58     │        4 16 37       │         No        │
-│    58   │    5^2 + 8^2    │      89     │      4 16 37 58      │         No        │
-│    89   │    8^2 + 9^2    │     145     │     4 16 37 58 89    │         No        │
-│   145   │ 1^2 + 4^2 + 5^2 │      42     │   4 16 37 58 89 145  │         No        │
-│    42   │    4^2 + 2^2    │      20     │ 4 16 37 58 89 145 20 │         No        │
-│    20   │    2^2 + 0^2    │      4      │ 4 16 37 58 89 145 20 │        Yes        │
-└────────────────────────────────────────────────────────────────────────────────────┘
+![image:width:100%](table.png)
+<!-- end_slide -->
+A working program
+===
+
+
+<!-- column_layout: [2,1] -->
+<!-- column: 0 -->
+```file +line_numbers +exec  {1|2|6|8-23|24-27|29|all} +id:good_code 
+path: good_code.cpp
+language: cpp
+```
+<!-- column: 1 -->
+<!-- snippet_output: good_code -->
+
+<!-- end_slide -->
+
+Questions!!!!
+===
+
+> Feel Free to ask any questions :3
+
+Made with Love.
+
+Almost forgot this function's body
+
+```file +line_numbers 
+path: happy.cpp
+language: cpp
+start_line: 69
+end_line: 74
 ```

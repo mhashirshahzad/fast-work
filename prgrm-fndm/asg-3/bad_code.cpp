@@ -1,4 +1,5 @@
 /// #include<iostream>
+/// bool happy = false;
 /// bool checkHappy(int n);
 /// int main(int argc, char **argv) {
 ///  std::cout << "checkHappy(19) gives:\n";
@@ -7,22 +8,25 @@
 ///  } return 0;
 /// }
 bool checkHappy(int n) {
-///  std::cout << n << " -> ";
-  int newN = 0;
+  while(!happy) { // happy is false by def
+///    std::cout << n << " -> ";
+    int newN = 0;
 
-  if (n == 1) { // if input is 1 we return
-    return true;
-  };
+    if (n == 1) { // if input is 1 we return
+      happy = true;
+    };
 
-  while (n != 0) { 
-    int d = n % 10; // get every digit
-    newN += d * d; // square it
-    n /= 10;
+    while (n != 0) { 
+      int d = n % 10; // get every digit
+      newN += d * d; // square it
+      n /= 10;
+    }
+
+    if (newN == 1) { // if new is 1 we return
+///      std::cout << newN;
+      happy = true;
+    }
+    n = newN;
   }
-
-  if (newN == 1) { // if new is 1 we return
-///    std::cout << newN;
-    return true;
-  }    
-  return checkHappy(newN); // recall the function
+  return happy;
 }

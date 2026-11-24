@@ -1,20 +1,20 @@
 #include <iostream>
 using namespace std;
 
-
-bool checkHappy(unsigned n, unsigned prevPattern[15], unsigned currentIndex);
+bool checkHappy(unsigned n, unsigned prevSequence[15], unsigned currentIndex);
+bool isPresentInArray(unsigned n, unsigned prevSequence[15], unsigned currentIndex);
 
 int main() {
 
-  unsigned prevPattern[15] = {0};
+  unsigned prevSequence[15] = {0};
   unsigned n;
   unsigned i = 0;
   
   cout << "Enter a +ve number: ";
   cin >> n;
-  prevPattern[i++] = n;
+  prevSequence[i++] = n;
 
-  bool res = checkHappy(n, prevPattern, i);
+  bool res = checkHappy(n, prevSequence, i);
 
   if (res == true)
     cout  << "\n" << n << " is a happy Number :)"; 
@@ -25,37 +25,52 @@ int main() {
   return 0;
 }
 
-bool checkHappy(unsigned n, unsigned prevPattern[15], unsigned currentIndex) {
-  cout << n << " -> ";
-  int newN = 0;
+bool checkHappy(unsigned n, unsigned prevSequence[15], unsigned currentIndex) {
+  bool finished = false; bool isHappy = false;
+  while(!finished) {
+    cout << n << " -> ";
+    unsigned newN = 0;
 
-  if (currentIndex >= 14) currentIndex = 0;
+    if (currentIndex >= 14) currentIndex = 0;
 
-  if (n == 1) {
-    cout << n;
-    return 1;
-  };
+    if (n == 1 && !isHappy) {
+      cout << n;
+      finished = true;
+      isHappy = true;
+    };
 
-  while (n != 0) {
-    int d = n % 10;
-    newN += d * d;
-    n /= 10;
-  }
+    while (n != 0 && !isHappy) {
+      int d = n % 10;
+      newN += d * d;
+      n /= 10;
+    }
 
-  if (newN == 1) {
-    cout << newN;
-    return 1;
-  }
-    
-  for (int i = 0; i < 14; i++) {
-    if (prevPattern[i] == newN) {
+    if (newN == 1 && !isHappy) {
+      cout << newN;
+      finished = true;
+      isHappy = true;
+    }
+  
+    if (isPresentInArray(newN, prevSequence, currentIndex)) {
       cout << newN;
       cout << "\n-------------------------------------";
       cout << "\n" << newN << " appeared before :<";
       cout << "\nRepeating pattern detected !";
-      return 0;
+      finished = true;
+      isHappy = false;
     }
+    
+    prevSequence[currentIndex++] = newN;
+    n = newN;
   }
-  prevPattern[currentIndex++] = newN;
-  return checkHappy(newN, prevPattern, currentIndex);
+  return isHappy;
+}
+
+bool isPresentInArray(unsigned newN, unsigned prevSequence[15], unsigned currentIndex) {
+    for (int i = 0; i < currentIndex; i++) {
+      if (prevSequence[i] == newN) {
+        return true;
+      }
+    }
+    return false;
 }
